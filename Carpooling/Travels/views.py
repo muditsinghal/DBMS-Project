@@ -26,6 +26,7 @@ def CreateRide(request):
     return render(request, 'Travels/CreateRide.html',{'form' : form})
 
 def RideRequest_v(request):
+    print(request.POST)
     id1 = request.POST.get("rideId")
     ride1 = Ride.objects.filter(id = id1)[0]
     rider1 = request.user
