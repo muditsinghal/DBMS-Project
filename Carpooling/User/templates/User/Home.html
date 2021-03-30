@@ -32,8 +32,14 @@
 		<div class="row">
 		<div class="card card-inverse" style="border-color: #333; min-width: 100%;">
 			<div class="card-body">
-				<h3 class="card-title">{{ ride.driver }}</h3>
-				<p class="card-text">{{ ride.concat }}</p>
+				<h3 class="card-title">{{ ride.concat }}</h3>
+				<p class="card-text">
+				Driver: {{ ride.driver }}
+				<br>
+				Timings: {{ ride.startDate }} - {{ ride.endDate }}
+				<br>
+				Price: {{ ride.price }}
+				</p>
 				{% comment %} Add dates to the card {% endcomment %}
 				<form action="/travel/Request-Ride/" method="POST">
 					{% csrf_token %}
