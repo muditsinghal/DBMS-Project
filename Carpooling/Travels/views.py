@@ -27,12 +27,12 @@ def CheckRideClash(user, startDate, endDate):
                 print('1')
                 print(userRide)
                 return 1
-            if (userRide.startDate > startDate and userRide.endDate < endDate):
+            if (userRide.startDate >= startDate and userRide.endDate <= endDate):
                 # messages.warning(request, 'Ride NOT created! This ride clashes with your previous ride(s)')
                 print('2')
                 print(userRide)
                 return 2
-            if (userRide.startDate > startDate and userRide.startDate < endDate):
+            if (userRide.startDate >= startDate and userRide.startDate <= endDate):
                 # messages.warning(request, 'Ride NOT created! This ride clashes with your previous ride(s)')
                 print('3')
                 print(userRide)
@@ -84,7 +84,7 @@ def CheckStatus(request):
     # cursor.execute("SELECT travels_requeststatus.description as description,user_user.userName as name,travels_riderequest.* from travels_riderequest inner join travels_requeststatus on travels_requeststatus.id = travels_riderequest.requestStatusID_id where travels_riderequest.riderId_id = %s and user_user.id in (select driver_id from user_usercar where id in (select driver_id from travels_ride where id in (select rideId_id from travels_riderequest where riderId_id = %s)))",tuple([request.user.id,request.user.id]))
     # rider = dictfetchall(cursor)
     rider = RideRequest.objects.filter(riderId = user)
-    return render(request, 'Travels/RideStatus.html',{'rider' : rider})
+    return render(request, 'Travels/RideStatus.html', {'rider' : rider})
 
 def RequestAccept(request):
     request_id = request.POST.get("reqId")

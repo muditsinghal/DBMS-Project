@@ -86,19 +86,28 @@ def AddLicense(request):
 
 def UserProfile(request):
 	user = request.user
+	userPassenger = RideRequest.objects.filter(riderId = user).filter(requestStatusID__id = 2)
+	userPassengerPend = RideRequest.objects.filter(riderId = user).filter(requestStatusID__id = 1)
+	print(userPassengerPend)
+	print(userPassenger)
+	context = {}
 	if(UserCar.objects.filter(driver=request.user)):
 		cursor = connection.cursor()
 		cursor.execute("SELECT * from travels_ride where driver_id in (select id from user_usercar where driver_id = %s)",[request.user.id])
 		userRide = dictfetchall(cursor)
-		userPassenger = Ride.objects.filter(riderequest__riderId = user).filter(riderequest__requestStatusID__description = 'Accepted')
-		userPassengerPend = Ride.objects.filter(riderequest__riderId = user).filter(riderequest__requestStatusID__description = 'Pending')
+		# userPassenger = Ride.objects.filter(riderequest__riderId = user).filter(riderequest__requestStatusID__description = 'Accepted')
+		# userPassengerPend = Ride.objects.filter(riderequest__riderId = user).filter(riderequest__requestStatusID__description = 'Pending')
 		Passengers = RideRequest.objects.filter(rideId__driver__driver = user).filter(requestStatusID__description = 'Accepted')
 	# driver = UserCar.objects.filter(driver=user)
 	# if driver.exists():
 	# 	ride = Ride.objects.filter(driver=driver[0])
-	else:	
-		return render(request,'User/Profile.html', {'user' : user})
-	return render(request,'User/Profile.html',{'user':user, 'rides' : userRide, 'userPassengers' : userPassenger,  'Passengers' : Passengers, 'userPassengersPend' : userPassengerPend})
+	# else:	
+	# 	return render(request,'User/Profile.html', {'user' : user})
+		context = {'user':user, 'rides' : userRide, 'userPassengers' : userPassenger,  'Passengers' : Passengers, 'userPassengersPend' : userPassengerPend}
+		return render(request,'User/Profile.html',context)
+	context = {'user':user, 'userPassengers' : userPassenger, 'userPassengersPend' : userPassengerPend}
+	# print(context['userPassengers'])
+	return render(request,'User/Profile.html',context)
 
 # ride = Ride.objects.filter(
 # 			~Q(driver__driver = user)).filter(

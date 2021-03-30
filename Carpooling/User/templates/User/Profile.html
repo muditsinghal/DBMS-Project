@@ -38,9 +38,9 @@
             <br>
             <div class="card border-success mb-3" style="width: 18rem; border-width: medium;">
             <div class="card-body">
-              <h5 class="card-title">{{ ride.startingPoint }} - {{ ride.endingPoint }}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{ ride.driver.driver.userName }} - {{ ride.driver.driver.mobileNumber }}</h6>
-              <p class="card-text">Price {{ ride.price }}</p>
+              <h5 class="card-title">{{ ride.rideId.startingPoint }} - {{ ride.rideId.endingPoint }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ ride.rideId.driver.driver.userName }} - {{ ride.rideId.driver.driver.mobileNumber }}</h6>
+              <p class="card-text">Price {{ ride.rideId.price }}</p>
             </div>
             </div>
             {% endfor %} 
@@ -49,9 +49,9 @@
             <br>
             <div class="card border-warning mb-3" style="width: 18rem; border-width: medium;">
             <div class="card-body">
-              <h5 class="card-title">{{ ride.startingPoint }} - {{ ride.endingPoint }}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{ ride.driver.driver.userName }} </h6>
-              <p class="card-text">Price {{ ride.price }}</p>
+              <h5 class="card-title">{{ ride.rideId.startingPoint }} - {{ ride.rideId.endingPoint }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ ride.rideId.driver.driver.userName }} </h6>
+              <p class="card-text">Price {{ ride.rideId.price }}</p>
             </div>
             </div>
             {% endfor %} 
