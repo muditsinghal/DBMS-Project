@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from .forms import CustUserCreationForm, CustUserChangeForm, UserCarForm
+from .forms import CustUserCreationForm, CustUserChangeForm, UserCarForm, LicenseForm
 from django.contrib.auth import login, authenticate
 from .models import UserCar
 from Travels.models import Ride, RideRequest, RequestStatus
 from django.db.models import Q
 from django.db import connection
-
+from django.contrib import messages
 # Create your views here.
 
 def dictfetchall(cursor): 
@@ -27,6 +27,7 @@ def UserRegister(request):
 			if user.driverLicense is not None or user.licenseValidFrom is not None:
 				print('Has drivers license')
 				return redirect('/user/Add-Car')
+			messages.success(request, f'Account for user {user.userName} created successfully!')
 			return redirect('/')
 	else:
 		form = CustUserCreationForm()
@@ -74,6 +75,21 @@ def UserRide(request):
 		print("No rides to show.")
 		return redirect('/')
 
+
+def AddLicense(request):
+	user = request.user
+	if request.method == 'POST':
+		form = LicenseForm(request.POST)
+		if form.is_valid():
+			instance = form.save(commit=False)
+			user.driverLicense = instance.driverLicense
+			user.licenseValidFrom = instance.licenseValidFrom
+			user.save()
+			return redirect('/user/Add-Car')
+	else:
+		form = LicenseForm()
+	return render(request, 'User/licensedeets.html', {'form': form})
+
 def UserProfile(request):
 	user = request.user
 	driver = UserCar.objects.filter(driver=user)
@@ -88,9 +104,9 @@ def Search(request):
 		q = request.GET.get('q')
 		if(UserCar.objects.filter(driver=request.user)):
 			driver = UserCar.objects.filter(driver = request.user)[0]
-			posts = Ride.objects.filter(startingPoint__icontains=q).exclude(driver=driver)
+			rides = Ride.objects.filter(startingPoint__icontains=q).exclude(driver=driver)
 		else:
-			posts = Ride.objects.filter(startingPoint__icontains=q)
-		return render(request, 'User/Home.html',{'posts': posts, 'query': q})
+			rides = Ride.objects.filter(startingPoint__icontains=q)
+		return render(request, 'User/Home.html',{'rides': rides, 'query': q})
 	else:
 		return HttpResponse('Please submit a search term.')

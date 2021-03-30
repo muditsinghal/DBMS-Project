@@ -7,8 +7,7 @@
 {% block content %}
 {% if user.is_authenticated %}
 	<p>Hi {{ user.userName }}, Welcome to Cabify!</p>
-	<p>Rides Available:</p>
-	{% if posts %}
+	{% comment %} {% if posts %}
 	<h1>Starting point: </h1>
 		{% for post in posts %}
 			<div class="card card-inverse" style="border-color: #333;">
@@ -22,22 +21,29 @@
 				</div>
 			</div>
 		{% endfor %}
-	{% endif %}
+	{% endif %} {% endcomment %}
+{% if q %}
+	<p>Search Results:</p>
+{% else %}
+	<p>Rides Available:</p>
+{% endif %}
 <div class="container">
-	<div class="card-columns">
 		{% for ride in rides %}
-		<div class="card card-inverse" style="border-color: #333;">
+		<div class="row">
+		<div class="card card-inverse" style="border-color: #333; min-width: 100%;">
 			<div class="card-body">
 				<h3 class="card-title">{{ ride.driver }}</h3>
 				<p class="card-text">{{ ride.concat }}</p>
+				{% comment %} Add dates to the card {% endcomment %}
 				<form action="/travel/Request-Ride/" method="POST">
 					{% csrf_token %}
 					<button type="submit" class="btn btn-primary" onclick="/travel/Request-Ride/" name='rideId' value="{{ ride.id }}">Request</button>
 				</form>
 			</div>
 		</div>
+		</div>
+		<br>
 		{% endfor %}
-	</div>
 </div>
 
 {% else %}
