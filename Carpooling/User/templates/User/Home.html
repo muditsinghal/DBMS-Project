@@ -7,21 +7,6 @@
 {% block content %}
 {% if user.is_authenticated %}
 	<p>Hi {{ user.userName }}, Welcome to Cabify!</p>
-	{% comment %} {% if posts %}
-	<h1>Starting point: </h1>
-		{% for post in posts %}
-			<div class="card card-inverse" style="border-color: #333;">
-				<div class="card-body">
-					<h3 class="card-title">{{ post.driver }}</h3>
-					<p class="card-text">{{ post.concat }}</p>
-					<form action="/travel/Request-Ride/" method="POST">
-						{% csrf_token %}
-						<button type="submit" class="btn btn-primary" onclick="/travel/Request-Ride/" name='rideId' value="{{ ride.id }}">Request</button>
-					</form>
-				</div>
-			</div>
-		{% endfor %}
-	{% endif %} {% endcomment %}
 {% if p or q %}
 	<p>Search Results:</p>
 {% else %}
@@ -40,7 +25,6 @@
 				<br>
 				Price: {{ ride.price }}
 				</p>
-				{% comment %} Add dates to the card {% endcomment %}
 				<form action="/travel/Request-Ride/" method="POST">
 					{% csrf_token %}
 					<button type="submit" class="btn btn-primary" onclick="/travel/Request-Ride/" name='rideId' value="{{ ride.id }}">Request</button>
@@ -59,23 +43,3 @@
 - Please login/Register to go ahead</p>
 {% endif %}
 {% endblock %}
-{% comment %} <footer class="footer-dark font-small pt-3 bg-steel fixed-bottom ">
-      <div class="container-fluid text-center text-md-left color-text">
-          <div class="row">
-              <div class="col-md-6 mt-md-0 mt-3">
-                  <p>
-                  NITK Hostels<br>
-                  Surathkal<br>
-                  Karnataka, 
-                  India<br>
-                  </p>
-              </div>
-              <div class="col-md-6 mb-md-0 mb-6">
-                  <h5 class="text-light">Reach out to us:</h5>
-                  <p>Phone Number: 9898989898<br>Email id: 
-                  <a class = "color1-text" href ="mailto:swapnil.guduru@gmail.com">Cabify@gmail.com</a>
-                  </p>
-              </div>
-          </div>
-      </div>
-  </footer> {% endcomment %}
