@@ -1,0 +1,27 @@
+version: "3.8"
+   
+services:
+  cabifydb:
+    container_name: cabifydb
+    image: mysql:5.7 
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./database:/var/lib/mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: cabifydb
+        MYSQL_DATABASE: cabifydb
+        MYSQL_USER: cabifydb
+        MYSQL_PASSWORD: cabifydb
+  web:
+    build: .
+    container_name: django-server
+    command: python3 Carpooling/manage.py makemigrations 0.0.0.0:8000
+    command: python3 Carpooling/manage.py migrate 0.0.0.0:8000
+    command: python3 Carpooling/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/server
+    ports:
+      - 8000:8000
+    depends_on:
+      - cabifydb
