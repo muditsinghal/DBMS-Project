@@ -7,6 +7,8 @@ This is a Web-Application built using Django framework and MySQL Database with H
 2. Swapnil Guduru
 3. Ashutosh Anand
 
+## ER Diagram
+<img src="./ER.jpg" />
 
 ## Steps to host :
 Make a New Folder named `DBMS_Project`
