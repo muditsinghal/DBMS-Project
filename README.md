@@ -4,8 +4,8 @@ This is a Web-Application built using Django framework and MySQL Database with H
 
 ## Team members:
 1. Mudit Singhal
-2. Swapnil Guduru
-3. Ashutosh Anand
+2. [Swapnil Guduru](https://github.com/swapnil2911)
+3. [Ashutosh Anand](https://github.com/ashueep)
 
 ## ER Diagram
 <img src="./ER.jpg" />
