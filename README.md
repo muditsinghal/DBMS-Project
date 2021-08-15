@@ -31,3 +31,7 @@ python manage.py migrate
 python manage.py runserver
 ``` 
 This will start a local-server at 127.0.0.1:8000 hosting the project.
+
+## Scaling
+For the learning purpose of scaling we created images of the server and database and ran 3 containers of the django-server along side 1 MySQL server, all running inside a docker network.
+We further added an NGinx reverse proxy manager for the purpose of loadbalancing (used default round robin type ) the tree django-server containers. 
