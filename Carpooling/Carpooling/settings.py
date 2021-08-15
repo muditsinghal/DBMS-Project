@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'Carpooling.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cabify',
-        'HOST': '127.0.0.1',
+        'NAME': 'cabifydb',
+        'HOST': 'cabifydb',
         'PORT': '3306',
-        'USER': 'dbadmin',
-        'PASSWORD': '123',
+        'USER': 'cabifydb',
+        'PASSWORD': 'cabifydb',
     }
 }
 # Password validation
