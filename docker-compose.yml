@@ -16,7 +16,7 @@ services:
   web1:
     build: .
     container_name: django-server0
-    command: python3 Carpooling/manage.py runserver 0.0.0.0:8000
+    command: ["./wait-for-it.sh", "cabifydb:3306", "--", "sh", "./docker-entry.sh"]
     volumes:
       - .:/server
     ports:
@@ -27,7 +27,7 @@ services:
   web2:
     build: .
     container_name: django-server1
-    command: python3 Carpooling/manage.py runserver 0.0.0.0:8000
+    command: ["./wait-for-it.sh", "cabifydb:3306", "--", "sh", "./docker-entry.sh"]
     volumes:
       - .:/server
     ports:
@@ -38,7 +38,7 @@ services:
   web3:
     build: .
     container_name: django-server2
-    command: python3 Carpooling/manage.py runserver 0.0.0.0:8000
+    command: ["./wait-for-it.sh", "cabifydb:3306", "--", "sh", "./docker-entry.sh"]
     volumes:
       - .:/server
     ports:
